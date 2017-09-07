@@ -1,0 +1,24 @@
+<template id="my-element-template">
+    <style>
+        p {
+            color: orange;
+        }
+    </style>
+    <p>I'm in Shadow DOM. My markup was stamped from a &lt;template&gt;.</p>
+</template>
+
+
+<script>
+    class MyElement extends HTMLElement {
+        constructor() {
+            super();
+
+            let shadowRoot = this.attachShadow({mode: 'open'});
+            const template = document.currentScript.ownerDocument.querySelector('#my-element-template');
+            const templateInstance = template.content.cloneNode(true);
+            shadowRoot.appendChild(templateInstance);
+        }
+    }
+
+    customElements.define('my-element', MyElement);
+</script>
