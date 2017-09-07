@@ -1,0 +1,54 @@
+<template id="life-cycle-template">
+    <p>This is my life cycle element</p>
+</template>
+
+<script>
+    const currentDoc = document.currentScript.ownerDocument;
+    class MyLifeCycleElement extends HTMLElement {
+
+        static get observedAttributes() {
+            return ['name']
+        }
+
+        get name() {
+            return this._name;
+        }
+
+        set name(name) {
+            this._name = name;
+            this.setAttribute('name', this._name);
+        }
+
+        constructor() {
+            super();
+
+            const shadow = this.attachShadow({
+                mode: 'open'
+            });
+            const temp = currentDoc.querySelector('#life-cycle-template');
+            shadow.appendChild(temp.content.cloneNode(true));
+
+            this.addEventListener('click', e => {
+                console.log('You clicked me!', this);
+            });
+        }
+
+        connectedCallback() {
+            console.log('I\'ve been added to the DOM');
+        }
+
+        disconnectedCallback() {
+            console.log(`I've been removed from the DOM`);
+        }
+
+        attributeChangedCallback(attrName, oldVal, newVal) {
+            if (attrName == 'name' && oldVal != newVal) {
+                this.name = newVal;
+                console.log('your name is ', newVal);
+            }
+        }
+
+    }
+
+    customElements.define('my-life-cycle-element', MyLifeCycleElement);
+</script>
