@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "sourceMap": true,
+      "target": "es2017",
+      "module": "es2015",
+      "jsx": "react",
+      "jsxFactory": "h",
+      "moduleResolution": "node",
+      "lib": [
+        "es2015",
+        "dom"
+      ],
+      "outDir": "./build",
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true    
+    }
+  }
